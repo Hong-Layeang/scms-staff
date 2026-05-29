@@ -1,6 +1,6 @@
 "use client";
 
-import { Utensils, CheckCircle, XCircle, Clock } from "lucide-react";
+import { Utensils, CheckCircle, XCircle, Clock, LogOut } from "lucide-react";
 import type { StaffInfo, MealSession } from "@/lib/types";
 
 interface LeftPanelProps {
@@ -140,6 +140,14 @@ export function LeftPanel({
             <span className="text-sm font-bold text-gray-800">{stat.value}</span>
           </div>
         ))}
+      </div>
+
+      {/* Sign Out */}
+      <div className="flex-1 flex items-end">
+        <button className="w-full px-4 py-3 flex items-center justify-start gap-2 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors rounded-lg border-t border-gray-100">
+          <LogOut size={16} />
+          Sign Out
+        </button>
       </div>
     </div>
   );
