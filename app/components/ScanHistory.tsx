@@ -9,7 +9,7 @@ interface ScanHistoryProps {
 
 export function ScanHistory({ logs }: ScanHistoryProps) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-4 h-full flex flex-col">
+    <div className="bg-white rounded-2xl border border-gray-200 p-4 flex-1 min-h-0 flex flex-col">
       <div className="px-0 py-0 border-b border-gray-100 pb-3 mb-3">
         <h3 className="text-sm font-semibold text-gray-800">Recent Scans</h3>
       </div>
