@@ -5,32 +5,27 @@ import {
   useCurrentTime,
   useScanHistory,
   useQueueManagement,
+  useCanteenData,
 } from "@/lib/hooks";
-import {
-  MOCK_QUEUE,
-  MOCK_SCAN_LOGS,
-  MOCK_MEAL_COUNTS,
-  MEAL_SESSIONS,
-  MOCK_STAFF,
-} from "@/lib/constants/mockData";
-import { LeftPanel } from "./LeftPanel";
-import { DashboardHeader } from "./DashboardHeader";
-import { QRScanner } from "./QRScanner";
-import { PendingQueue } from "./PendingQueue";
-import { ScanHistory } from "./ScanHistory";
-import { MealInventory } from "./MealInventory";
+import { DashboardHeader } from "../../layout/DashboardHeader";
+import { LeftPanel } from "../../layout/LeftPanel";
+import { QRScanner } from "../qr-scanner/QRScanner";
+import { PendingQueue } from "../pending-queue/PendingQueue";
+import { ScanHistory } from "../scan-history/ScanHistory";
+import { MealInventory } from "../meal-inventory/MealInventory";
 
 export function CanteenStaffDashboard() {
   const { timeString, dateString, currentTime } = useCurrentTime();
+  const { queueItems: initialQueue, scanLogs: initialLogs, mealCounts, mealSessions, staffInfo } = useCanteenData();
   const { logs, addLog, addFailedLog, failedCount } = useScanHistory({
-    initialLogs: MOCK_SCAN_LOGS,
+    initialLogs: initialLogs,
   });
   const {
     queueItems,
     served,
     serveNext,
     queueLength,
-  } = useQueueManagement({ initialQueue: MOCK_QUEUE });
+  } = useQueueManagement({ initialQueue });
 
   const [activeSession] = useState<"breakfast" | "lunch" | "dinner">("lunch");
 
@@ -61,8 +56,8 @@ export function CanteenStaffDashboard() {
         timeString={timeString}
         dateString={dateString}
         activeSession={activeSession}
-        staffInfo={MOCK_STAFF}
-        sessions={MEAL_SESSIONS}
+        staffInfo={staffInfo}
+        sessions={mealSessions}
         stats={{
           served,
           failedScans: failedCount,
@@ -83,7 +78,7 @@ export function CanteenStaffDashboard() {
       {/* Right panel – logs + meal counts */}
       <div className="w-72 bg-white border-l border-gray-200 flex flex-col overflow-hidden">
         <ScanHistory logs={logs} />
-        <MealInventory items={MOCK_MEAL_COUNTS} filterBySession="lunch" />
+        <MealInventory items={mealCounts} filterBySession="lunch" />
       </div>
     </div>
   );

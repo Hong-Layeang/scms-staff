@@ -1,4 +1,4 @@
-import { CanteenStaffDashboard } from "./components/CanteenStaffDashboard";
+import { CanteenStaffDashboard } from "@/components/features/canteen-dashboard";
 
 export default function Home() {
   return <CanteenStaffDashboard />;
